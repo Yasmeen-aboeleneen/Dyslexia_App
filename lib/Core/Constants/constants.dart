@@ -1,0 +1,1 @@
+const kIsOnBoardingScreenSeen = 'isOnBoardingScreenSeen';
