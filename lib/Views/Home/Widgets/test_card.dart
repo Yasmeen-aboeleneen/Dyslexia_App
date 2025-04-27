@@ -7,8 +7,8 @@ class TestCard extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  TestCard(
-      {required this.title,
+  const TestCard(
+      {super.key, required this.title,
       required this.description,
       required this.icon,
       required this.onTap});

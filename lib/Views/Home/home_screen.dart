@@ -1,5 +1,6 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:dyslexia_app/Core/Utils/app_images.dart';
+import 'package:dyslexia_app/Views/Home/Tests/letter_discrimination_test.dart';
 import 'package:dyslexia_app/Views/Home/Widgets/test_card.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +33,12 @@ class HomeScreen extends StatelessWidget {
                 title: 'اختبار التمييز بين الحروف',
                 description: 'تمييز الحروف المتشابهة',
                 icon: Icons.text_fields,
-                onTap: () {},
+               
 
-                // onTap: () => Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => LetterDiscriminationTest())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => VoiceLetterTest())),
               ),
               TestCard(
                 title: 'اختبار الذاكرة السمعية',
