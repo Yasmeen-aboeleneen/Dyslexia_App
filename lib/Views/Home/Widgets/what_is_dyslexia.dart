@@ -15,7 +15,7 @@ class WhatisDyslexia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: h * .28,
+      height: h * .3,
       width: w,
       decoration: BoxDecoration(
           color: kPrimary2,

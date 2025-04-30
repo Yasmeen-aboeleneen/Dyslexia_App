@@ -1,11 +1,11 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:dyslexia_app/Core/Widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Controller/voice_letter_test_controller.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Letter%20Discrimination%20Test/Controller/voice_letter_test_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'widgets/question_card.dart';
-import 'widgets/feedback_widget.dart';
-import 'widgets/progress_indicator.dart';
+import '../widgets/question_card.dart';
+import '../widgets/feedback_widget.dart';
+import '../widgets/progress_indicator.dart';
 
 class VoiceLetterTest extends StatefulWidget {
   const VoiceLetterTest({super.key});

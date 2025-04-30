@@ -21,7 +21,7 @@ class DyslexiaInfoScreen extends StatelessWidget {
             child: WhatisDyslexia(h: h, w: w),
           ),
           Positioned(
-              top: h * .3,
+              top: h * .32,
               child: SizedBox(
                 width: w,
                 child: Text(

@@ -1,5 +1,5 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Models/voice_letter_test_model.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Letter%20Discrimination%20Test/Model/voice_letter_test_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
