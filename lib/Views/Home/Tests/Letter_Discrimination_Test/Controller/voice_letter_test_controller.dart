@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print
 
-import 'package:dyslexia_app/Views/Home/Tests/Letter%20Discrimination%20Test/Model/voice_letter_test_model.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Letter_Discrimination_Test/Model/voice_letter_test_model.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class VoiceLetterTestController {
   final FlutterTts _tts = FlutterTts();
@@ -71,7 +71,9 @@ class VoiceLetterTestController {
       },
       localeId: 'ar-SA',
       listenFor: Duration(seconds: 5),
+      // ignore: deprecated_member_use
       cancelOnError: true,
+      // ignore: deprecated_member_use
       partialResults: true,
     );
   }

@@ -18,7 +18,7 @@ class CustomElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: widget.onNext,
         style: ElevatedButton.styleFrom(
-          backgroundColor: kPrimary2,
+          backgroundColor: kDGrey,
           padding: EdgeInsets.symmetric(
             horizontal: widget.w * 0.3,
             vertical: widget.h * 0.015,

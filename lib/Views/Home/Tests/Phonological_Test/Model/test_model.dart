@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, duplicate_ignore
+
 class PhonemeExercise {
   final String instruction;
   final String? targetWord;
@@ -17,8 +19,11 @@ class PhonemeExercise {
 }
 
 enum ExerciseType {
+  // ignore: constant_identifier_names
   BLENDING, // دمج الأصوات
+  // ignore: constant_identifier_names
   SEGMENTATION, // تجزئة الكلمات
+  // ignore: constant_identifier_names
   DELETION, // حذف الأصوات
   SUBSTITUTION, // استبدال الأصوات
   RHYMING // القوافي

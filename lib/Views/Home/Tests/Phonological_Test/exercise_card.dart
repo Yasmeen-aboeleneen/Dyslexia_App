@@ -1,5 +1,5 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Phonological%20Test/Model/test_model.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Phonological_Test/Model/test_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,10 +12,11 @@ class ExerciseCard extends StatefulWidget {
     super.key,
     required this.exercise,
     required this.onAnswer,
-    this.currentAnswer, 
+    this.currentAnswer,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _ExerciseCardState createState() => _ExerciseCardState();
 }
 

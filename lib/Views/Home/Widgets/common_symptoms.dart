@@ -109,7 +109,7 @@ class _CommonSymptomsState extends State<CommonSymptoms>
               alignment: Alignment.centerLeft,
               child: CustomCard(
                 text: 'صعوبة في التعرف على الكلمات',
-                colors: [kPrimary2, kPrimary4, kPrimary2],
+                colors: [kMGrey, kPrimary, kPrimary, kMGrey],
               ),
             ),
           ),
@@ -128,7 +128,7 @@ class _CommonSymptomsState extends State<CommonSymptoms>
               alignment: Alignment.centerRight,
               child: CustomCard(
                 text: 'قراءة بطيئة أو غير دقيقة',
-                colors: [kPrimary2, kPrimary4, kPrimary2],
+                colors: [kMGrey, kPrimary, kPrimary, kMGrey],
               ),
             ),
           ),
@@ -166,7 +166,7 @@ class _CommonSymptomsState extends State<CommonSymptoms>
               alignment: Alignment.centerRight,
               child: CustomCard(
                 text: 'صعوبة في التمييز بين الحروف المتشابهة',
-                colors: [kPrimary2, kPrimary4, kPrimary2],
+                colors: [kMGrey, kPrimary, kPrimary, kMGrey],
               ),
             ),
           ),
@@ -185,7 +185,7 @@ class _CommonSymptomsState extends State<CommonSymptoms>
               alignment: Alignment.centerLeft,
               child: CustomCard(
                 text: 'صعوبة في التهجئة',
-                colors: [kPrimary2, kPrimary4, kPrimary2],
+                colors: [kMGrey, kPrimary, kPrimary, kMGrey],
               ),
             ),
           ),

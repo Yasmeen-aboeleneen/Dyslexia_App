@@ -1,5 +1,5 @@
+import 'package:dyslexia_app/Views/Home/Tests/Phonological_Test/Model/test_model.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Phonological%20Test/Model/test_model.dart';
 
 class PhonemeController {
   final FlutterTts tts = FlutterTts();
@@ -48,6 +48,7 @@ class PhonemeController {
   }
 
   PhonemeExercise get currentExercise => _exercises[_currentIndex];
+  // ignore: unnecessary_getters_setters
   int get currentIndex => _currentIndex;
   set currentIndex(int value) => _currentIndex = value;
   int get score => _score;

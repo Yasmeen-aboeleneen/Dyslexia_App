@@ -1,69 +1,174 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:dyslexia_app/Core/Utils/app_images.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Letter%20Discrimination%20Test/letter_discrimination_test.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Phonological%20Test/phonological_test.dart';
-import 'package:dyslexia_app/Views/Home/Widgets/test_card.dart';
+import 'package:dyslexia_app/Views/Home/tests_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _titleAnimation;
+  late Animation<double> _subtitleAnimation;
+  late Animation<double> _imageAnimation;
+  late Animation<double> _buttonAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _titleAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0, 0.3, curve: Curves.easeInOut),
+      ),
+    );
+
+    _subtitleAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.2, 0.5, curve: Curves.easeInOut),
+      ),
+    );
+
+    _imageAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.4, 0.8, curve: Curves.easeInOut),
+      ),
+    );
+
+    _buttonAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.7, 1.0, curve: Curves.easeInOut),
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var w = MediaQuery.of(context).size.width;
+    var h = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: kPrimary,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            children: [
-              Image.asset(Assets.imagesPic1),
-              SizedBox(
-                height: 25,
+      backgroundColor: kveryWhite,
+      body: Padding(
+        padding: const EdgeInsets.all(2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: h * .1),
+
+            // العنوان مع Animation
+            FadeTransition(
+              opacity: _titleAnimation,
+              child: Text(
+                'مرحبا بك في Discovery',
+                style: GoogleFonts.cairo(
+                  color: kPrimary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: w * .07,
+                ),
               ),
-              TestCard(
-                title: 'اختبار التمييز بين الحروف',
-                description: 'تمييز الحروف المتشابهة',
-                icon: Icons.text_fields,
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => VoiceLetterTest())),
+            ),
+
+            SizedBox(height: h * .01),
+
+            // العنوان الفرعي مع Animation
+            FadeTransition(
+              opacity: _subtitleAnimation,
+              child: Text(
+                'اكتشاف مبكر لعسر القراءة',
+                style: GoogleFonts.cairo(
+                  color: kBlack,
+                  fontWeight: FontWeight.bold,
+                  fontSize: w * .048,
+                ),
               ),
-              // TestCard(
-              //   title: 'اختبار سرعة القراءة',
-              //   description: 'قياس سرعة ودقة القراءة',
-              //   icon: Icons.timer,
-              //   onTap: () => Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => ReadingTestPage())),
-              // ),
-              // TestCard(
-              //   title: 'اختبار الذاكرة السمعية',
-              //   description: 'تذكر تسلسل الكلمات',
-              //   icon: Icons.hearing,
-              //   onTap: () => Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => ArabicMemoryScreen())),
-              // ),
-              TestCard(
-                title: 'اختبار التهجئة',
-                description: 'قياس قدرات التهجئة',
-                icon: Icons.spellcheck,
-                onTap: () {},
-                // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SpellingTest())),
+            ),
+
+            SizedBox(height: h * .02),
+
+            // الصورة مع Animation
+            ScaleTransition(
+              scale: _imageAnimation,
+              child: CircleAvatar(
+                radius: w * .5,
+                backgroundImage: AssetImage(Assets.imagesDownload),
               ),
-              TestCard(
-                title: 'اختبار الوعي الصوتي',
-                description: 'القدرة على التلاعب بالمقاطع الصوتية',
-                icon: Icons.record_voice_over,
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PhonologicalTestScreen())),
+            ),
+
+            SizedBox(height: h * .04),
+
+            // الزر مع Animation
+            SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0, 0.5),
+                end: Offset.zero,
+              ).animate(_buttonAnimation),
+              child: FadeTransition(
+                opacity: _buttonAnimation,
+                child: Padding(
+                  padding: EdgeInsets.only(left: w * .15, right: w * .15),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TestsScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: h * .065,
+                      width: w,
+                      decoration: BoxDecoration(
+                        color: kPrimary,
+                        borderRadius: BorderRadius.circular(35),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 10,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          'ابدأ الاختبارات الآن',
+                          style: GoogleFonts.cairo(
+                            color: kveryWhite,
+                            fontSize: w * .052,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

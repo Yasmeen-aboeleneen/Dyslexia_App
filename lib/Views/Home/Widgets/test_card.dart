@@ -8,7 +8,8 @@ class TestCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const TestCard(
-      {super.key, required this.title,
+      {super.key,
+      required this.title,
       required this.description,
       required this.icon,
       required this.onTap});
@@ -34,14 +35,19 @@ class TestCard extends StatelessWidget {
                   children: [
                     Text(title,
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                            color: kPrimary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
                     Text(description,
                         style: TextStyle(fontSize: 14, color: kDGrey)),
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: kPrimary,
+              ),
             ],
           ),
         ),

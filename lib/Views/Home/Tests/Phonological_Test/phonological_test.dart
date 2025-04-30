@@ -3,9 +3,9 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:dyslexia_app/Core/Widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Phonological%20Test/Controller/phoneme_controller.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Phonological%20Test/Widgets/exercise_card.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Phonological%20Test/Widgets/phoneme_result_dialog.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Phonological_Test/Controller/phoneme_controller.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Phonological_Test/exercise_card.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Phonological_Test/phoneme_result_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
