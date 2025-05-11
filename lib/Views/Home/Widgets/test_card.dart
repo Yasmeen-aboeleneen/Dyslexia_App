@@ -27,7 +27,7 @@ class TestCard extends StatelessWidget {
           padding: EdgeInsets.all(16),
           child: Row(
             children: [
-              Icon(icon, size: 40, color: kPrimary),
+              Icon(icon, size: 40, color: kPrimary3),
               SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -35,7 +35,7 @@ class TestCard extends StatelessWidget {
                   children: [
                     Text(title,
                         style: TextStyle(
-                            color: kPrimary,
+                            color: kPrimary3,
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),

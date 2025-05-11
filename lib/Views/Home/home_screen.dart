@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: Text(
                 'مرحبا بك في Discovery',
                 style: GoogleFonts.cairo(
-                  color: kPrimary,
+                  color: kPrimary3,
                   fontWeight: FontWeight.bold,
                   fontSize: w * .07,
                 ),
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen>
                       height: h * .065,
                       width: w,
                       decoration: BoxDecoration(
-                        color: kPrimary,
+                        color: kPrimary3,
                         borderRadius: BorderRadius.circular(35),
                         boxShadow: [
                           BoxShadow(

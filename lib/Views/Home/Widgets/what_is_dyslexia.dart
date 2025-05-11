@@ -18,7 +18,7 @@ class WhatisDyslexia extends StatelessWidget {
       height: h * .3,
       width: w,
       decoration: BoxDecoration(
-          color: kPrimary,
+          color: kPrimary3,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(35),
               bottomRight: Radius.circular(35))),
@@ -33,7 +33,7 @@ class WhatisDyslexia extends StatelessWidget {
               'ما هو عسر القراءة ؟',
               style: GoogleFonts.cairo(
                   fontSize: w * .06,
-                  color: kBlack,
+                  color: kveryWhite,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -43,7 +43,7 @@ class WhatisDyslexia extends StatelessWidget {
               textAlign: TextAlign.center,
               'عُسر القراءة هو أحد اضطرابات التعلم، ويشمل صعوبةً في القراءة بسبب وجود مشكلات في التعرف على أصوات الكلام ومعرفة مدى صلتها بالحروف والكلمات ',
               style: GoogleFonts.cairo(
-                  color: kBlack,
+                  color: kveryWhite,
                   fontSize: w * .04,
                   fontWeight: FontWeight.w600),
             ),
@@ -54,7 +54,7 @@ class WhatisDyslexia extends StatelessWidget {
                 textAlign: TextAlign.center,
                 'ولا يحدث عُسر القراءة نتيجة مشكلات تتعلق بالذكاء أو السمع أو البصر',
                 style: GoogleFonts.cairo(
-                    color: kBlack,
+                    color: kveryWhite,
                     fontSize: w * .04,
                     fontWeight: FontWeight.w600))
           ],

@@ -1,6 +1,7 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:dyslexia_app/Views/Home/Tests/Letter_Discrimination_Test/letter_discrimination_test.dart';
 import 'package:dyslexia_app/Views/Home/Tests/Phonological_Test/phonological_test.dart';
+import 'package:dyslexia_app/Views/Home/Tests/Spelling_Test/spelling_test_screen.dart';
 import 'package:dyslexia_app/Views/Home/Widgets/test_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,17 +15,17 @@ class TestsScreen extends StatelessWidget {
     var h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kPrimary1,
+        backgroundColor: kPrimary3,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                height: h * .1,
+                height: h * .12,
                 width: w,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          blurRadius: 25,
+                          blurRadius: 35,
                           color: kveryWhite,
                           offset: Offset(0, 10))
                     ],
@@ -36,20 +37,20 @@ class TestsScreen extends StatelessWidget {
                     child: Text(
                   'Discovery',
                   style: GoogleFonts.cairo(
-                    color: kPrimary,
+                    color: kPrimary3,
                     fontWeight: FontWeight.bold,
                     fontSize: w * .088,
                   ),
                 ))),
             SizedBox(
-              height: h * .02,
+              height: h * .025,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "مجموعة من الاختبارات المصممة بعناية التي تساعد في الكشف المبكر عن صعوبات القراءة (عُسر القراءة) وتحديد مستوياتها بدقة\n مما يمهد الطريق لتقديم الدعم والتدخل المناسب لكل حالة.",
                 style: GoogleFonts.cairo(
-                  color: kBlack,
+                  color: kveryWhite,
                   fontWeight: FontWeight.bold,
                   fontSize: w * .04,
                 ),
@@ -62,12 +63,25 @@ class TestsScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 width: w,
-                decoration: BoxDecoration(color: kPrimary),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(35),
+                        topRight: Radius.circular(35)),
+                    color: kPrimary3,
+                    boxShadow: [
+                      BoxShadow(
+                          color: kveryWhite,
+                          blurRadius: 50,
+                          offset: Offset(0, 10))
+                    ]),
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: h * .05,
+                        ),
                         TestCard(
                           title: 'اختبار التمييز بين الحروف',
                           description: 'تمييز الحروف المتشابهة',
@@ -77,32 +91,20 @@ class TestsScreen extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => VoiceLetterTest())),
                         ),
-                        TestCard(
-                          title: 'اختبار سرعة القراءة',
-                          description: 'قياس سرعة ودقة القراءة',
-                          icon: Icons.timer,
-                          onTap: () {},
-                          // onTap: () => Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => ReadingTestPage())),
-                        ),
-                        TestCard(
-                          title: 'اختبار الذاكرة السمعية',
-                          description: 'تذكر تسلسل الكلمات',
-                          icon: Icons.hearing,
-                          onTap: () {},
-                          // onTap: () => Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => ArabicMemoryScreen())),
+                        SizedBox(
+                          height: h * .05,
                         ),
                         TestCard(
                           title: 'اختبار التهجئة',
                           description: 'قياس قدرات التهجئة',
                           icon: Icons.spellcheck,
-                          onTap: () {},
-                          // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SpellingTest())),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VoiceSpellingTest())),
+                        ),
+                        SizedBox(
+                          height: h * .05,
                         ),
                         TestCard(
                           title: 'اختبار الوعي الصوتي',

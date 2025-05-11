@@ -4,7 +4,7 @@ const Color kBlack = Colors.black;
 const Color kPrimary = Color.fromRGBO(247, 135, 43, 1);
 const Color kPrimary1 = Color.fromRGBO(247, 135, 43, 1);
 const Color kPrimary2 = Color.fromARGB(255, 197, 84, 178);
-const Color kPrimary3 = Color.fromRGBO(229, 151, 187, 1);
+const Color kPrimary3 = Color.fromRGBO(203, 90, 143, 1);
 const Color kPrimary4 = Color.fromARGB(255, 244, 197, 159);
 
 const Color kRed = Color.fromARGB(255, 154, 40, 32);
