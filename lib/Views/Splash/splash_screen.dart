@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
     var w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: kPrimary2,
+      backgroundColor: kPrimary3,
       body: Stack(
         children: [
           Positioned(
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen>
                 color: kveryWhite,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(Assets.imagesLogo),
+                  image: AssetImage(Assets.imagesDownload),
                 ),
               ),
             ),
