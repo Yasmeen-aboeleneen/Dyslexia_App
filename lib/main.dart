@@ -1,10 +1,6 @@
 import 'package:dyslexia_app/Core/Helper/on_generate_route_function.dart';
 import 'package:dyslexia_app/Core/Services/shared_preferences_singleton.dart';
 import 'package:dyslexia_app/Core/Services/text_to_speech.dart';
- 
-
-// import 'package:dyslexia_app/Views/Home/dyslexia_info_screen.dart';
-// import 'package:dyslexia_app/Views/Splash/splash_screen.dart';
 import 'package:dyslexia_app/Views/Splash/splash_screen1.dart';
 import 'package:dyslexia_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -36,8 +32,6 @@ class MyApp extends StatelessWidget {
       title: '',
       onGenerateRoute: onGenerateRoute,
       initialRoute: SplashScreen1.routeName1,
-
-      // home: SplashScreen1(),
     );
   }
 }

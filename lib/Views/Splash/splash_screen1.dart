@@ -82,46 +82,54 @@ class _SplashScreen1State extends State<SplashScreen1> {
             ),
             SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.only(right: 4, left: 4),
+              padding: EdgeInsets.only(right: w * .08, left: w * .08),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Prof :-',
-                    style: GoogleFonts.aBeeZee(
-                        color: kBlack,
-                        fontSize: w * .06,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: w * .02),
-                  Text(
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.justify,
                     'Amany El-Gamal',
                     style: GoogleFonts.aBeeZee(
                         color: kBlue,
                         fontSize: w * .07,
                         fontWeight: FontWeight.bold),
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 4, left: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                  SizedBox(width: w * .02),
                   Text(
-                    'Dr :-',
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.justify,
+                    'Prof :-',
                     style: GoogleFonts.aBeeZee(
                         color: kBlack,
                         fontSize: w * .06,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: w * .02),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: w * .08, left: w * .08),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
                   Text(
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.justify,
                     'Mohamed Ghoniem',
                     style: GoogleFonts.aBeeZee(
                         color: kBlue,
                         fontSize: w * .07,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: w * .02),
+                  Text(
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.justify,
+                    'Dr :-',
+                    style: GoogleFonts.aBeeZee(
+                        color: kBlack,
+                        fontSize: w * .06,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -148,7 +156,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
   }
 
   void executeNavigation() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 7), () {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, SplashScreen.routeName);
     });
