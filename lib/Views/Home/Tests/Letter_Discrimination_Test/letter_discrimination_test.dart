@@ -199,7 +199,7 @@ class _VoiceLetterTestState extends State<VoiceLetterTest> {
     var h = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kPrimary,
+      backgroundColor: kPrimary3,
       appBar: BuildAppBar(context, w, title: 'الاختبار الأول', actions: [
         IconButton(
           onPressed: _showInstructions,

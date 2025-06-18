@@ -1,6 +1,7 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:dyslexia_app/Core/Utils/app_images.dart';
-import 'package:dyslexia_app/Views/Home/tests_screen.dart';
+
+import 'package:dyslexia_app/Views/MainHome/main_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +9,7 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -78,8 +80,6 @@ class _HomeScreenState extends State<HomeScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: h * .1),
-
-            // العنوان مع Animation
             FadeTransition(
               opacity: _titleAnimation,
               child: Text(
@@ -91,10 +91,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
             ),
-
             SizedBox(height: h * .01),
-
-            // العنوان الفرعي مع Animation
             FadeTransition(
               opacity: _subtitleAnimation,
               child: Text(
@@ -106,10 +103,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
             ),
-
             SizedBox(height: h * .02),
-
-            // الصورة مع Animation
             ScaleTransition(
               scale: _imageAnimation,
               child: CircleAvatar(
@@ -117,10 +111,7 @@ class _HomeScreenState extends State<HomeScreen>
                 backgroundImage: AssetImage(Assets.imagesDownload),
               ),
             ),
-
             SizedBox(height: h * .04),
-
-            // الزر مع Animation
             SlideTransition(
               position: Tween<Offset>(
                 begin: const Offset(0, 0.5),
@@ -135,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const TestsScreen(),
+                          builder: (context) => const MainHomeScreen(),
                         ),
                       );
                     },
@@ -147,6 +138,7 @@ class _HomeScreenState extends State<HomeScreen>
                         borderRadius: BorderRadius.circular(35),
                         boxShadow: [
                           BoxShadow(
+                            // ignore: deprecated_member_use
                             color: Colors.black.withOpacity(0.2),
                             blurRadius: 10,
                             spreadRadius: 2,
@@ -155,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                       child: Center(
                         child: Text(
-                          'ابدأ الاختبارات الآن',
+                          'ابدأ الآن',
                           style: GoogleFonts.cairo(
                             color: kveryWhite,
                             fontSize: w * .052,

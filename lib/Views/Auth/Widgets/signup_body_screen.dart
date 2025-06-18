@@ -3,6 +3,7 @@ import 'package:dyslexia_app/Core/Widgets/custom_button.dart';
 import 'package:dyslexia_app/Core/Widgets/custom_text_form_field.dart';
 import 'package:dyslexia_app/Views/Auth/Widgets/have_an_account.dart';
 import 'package:dyslexia_app/Views/Auth/Widgets/terms_and_conditions.dart';
+import 'package:dyslexia_app/Views/Home/dyslexia_info_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignupBodyScreen extends StatelessWidget {
@@ -59,7 +60,12 @@ class SignupBodyScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: CustomButton(onpressed: () {}, text: 'إنشاء حساب جديد'),
+              child: CustomButton(
+                  onpressed: () {
+                    Navigator.pushNamed(
+                        context, DyslexiaInfoScreen.dyslexiaInfoRoute);
+                  },
+                  text: 'إنشاء حساب جديد'),
             ),
             SizedBox(
               height: h * .02,

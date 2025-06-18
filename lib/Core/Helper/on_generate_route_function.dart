@@ -1,5 +1,7 @@
 import 'package:dyslexia_app/Views/Auth/login_screen.dart';
 import 'package:dyslexia_app/Views/Auth/signup_screen.dart';
+import 'package:dyslexia_app/Views/Home/dyslexia_info_screen.dart';
+import 'package:dyslexia_app/Views/Home/final_result.dart';
 import 'package:dyslexia_app/Views/OnBoarding/onboarding_screen.dart';
 import 'package:dyslexia_app/Views/Splash/splash_screen.dart';
 import 'package:dyslexia_app/Views/Splash/splash_screen1.dart';
@@ -17,6 +19,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const LoginScreen());
     case SignupScreen.signUPRoute:
       return MaterialPageRoute(builder: (context) => const SignupScreen());
+    case DyslexiaInfoScreen.dyslexiaInfoRoute:
+      return MaterialPageRoute(builder: (context) => const DyslexiaInfoScreen());
+      case  FinalResult.finalResult:
+      return MaterialPageRoute(builder: (context) => const FinalResult());
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
   }

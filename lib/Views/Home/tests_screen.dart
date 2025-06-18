@@ -17,7 +17,6 @@ class TestsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kPrimary3,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
                 height: h * .12,
@@ -29,7 +28,7 @@ class TestsScreen extends StatelessWidget {
                           color: kveryWhite,
                           offset: Offset(0, 10))
                     ],
-                    color: kveryWhite,
+                    color: kDGrey,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(35),
                         bottomRight: Radius.circular(35))),
@@ -37,18 +36,18 @@ class TestsScreen extends StatelessWidget {
                     child: Text(
                   'Discovery',
                   style: GoogleFonts.cairo(
-                    color: kPrimary3,
+                    color: kveryWhite,
                     fontWeight: FontWeight.bold,
                     fontSize: w * .088,
                   ),
                 ))),
             SizedBox(
-              height: h * .025,
+              height: h * .06,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "مجموعة من الاختبارات المصممة بعناية التي تساعد في الكشف المبكر عن صعوبات القراءة (عُسر القراءة) وتحديد مستوياتها بدقة\n مما يمهد الطريق لتقديم الدعم والتدخل المناسب لكل حالة.",
+                "مجموعة من الاختبارات المصممة بعناية التي تساعد في علاج صعوبات القراءة (عُسر القراءة) ",
                 style: GoogleFonts.cairo(
                   color: kveryWhite,
                   fontWeight: FontWeight.bold,
@@ -58,16 +57,17 @@ class TestsScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: h * .04,
+              height: h * .09,
             ),
             Expanded(
               child: Container(
                 width: w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(35),
-                        topRight: Radius.circular(35)),
-                    color: kPrimary3,
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35),
+                    ),
+                    color: kDGrey,
                     boxShadow: [
                       BoxShadow(
                           color: kveryWhite,
@@ -115,7 +115,7 @@ class TestsScreen extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       PhonologicalTestScreen())),
-                        )
+                        ),
                       ],
                     ),
                   ),

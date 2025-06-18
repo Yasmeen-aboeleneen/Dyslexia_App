@@ -89,8 +89,11 @@ class SpellingTestViewModel {
         }
       },
       localeId: 'ar-SA',
+      // ignore: deprecated_member_use
       listenMode: stt.ListenMode.confirmation,
+      // ignore: deprecated_member_use
       cancelOnError: true,
+      // ignore: deprecated_member_use
       partialResults: false,
     );
   }

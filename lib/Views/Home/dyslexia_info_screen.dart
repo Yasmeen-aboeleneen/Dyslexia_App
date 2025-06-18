@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DyslexiaInfoScreen extends StatelessWidget {
   const DyslexiaInfoScreen({super.key});
-
+static const String dyslexiaInfoRoute = 'dyslexiaInfoRoute';
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;

@@ -46,7 +46,7 @@ class TestCard extends StatelessWidget {
               ),
               Icon(
                 Icons.arrow_forward_ios,
-                color: kPrimary,
+                color: kPrimary3,
               ),
             ],
           ),

@@ -4,11 +4,16 @@ import 'package:dyslexia_app/Core/Services/text_to_speech.dart';
 import 'package:dyslexia_app/Views/Splash/splash_screen1.dart';
 import 'package:dyslexia_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await TextToSpeech.init();
   await SharedPreferencesSingleton.init();
   runApp(const MyApp());

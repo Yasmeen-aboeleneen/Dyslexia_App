@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
                 opacity: _animation.value,
                 duration: Duration(seconds: 1),
                 child: Text(
-                  "عسر القراءة",
+                  "Discovery",
                   style: GoogleFonts.cairo(
                     color: kveryWhite,
                     fontWeight: FontWeight.bold,

@@ -8,6 +8,7 @@ class VoiceSpellingTest extends StatefulWidget {
   const VoiceSpellingTest({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _VoiceSpellingTestState createState() => _VoiceSpellingTestState();
 }
 
@@ -141,6 +142,7 @@ class _VoiceSpellingTestState extends State<VoiceSpellingTest> {
     try {
       await _viewModel.speakWord();
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('تعذر تشغيل الكلمة', style: GoogleFonts.cairo()),
@@ -170,6 +172,7 @@ class _VoiceSpellingTestState extends State<VoiceSpellingTest> {
       }
       setState(() {});
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('حدث خطأ أثناء التسجيل', style: GoogleFonts.cairo()),
@@ -194,6 +197,7 @@ class _VoiceSpellingTestState extends State<VoiceSpellingTest> {
       await _viewModel.playRecording();
       setState(() {});
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('تعذر تشغيل التسجيل', style: GoogleFonts.cairo()),
