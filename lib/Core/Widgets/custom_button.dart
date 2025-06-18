@@ -20,8 +20,8 @@ class CustomButton extends StatelessWidget {
       height: h * .065,
       child: TextButton(
           style: TextButton.styleFrom(
-              backgroundColor: kPrimary1,
-              foregroundColor: kPrimary1,
+              backgroundColor: kPrimary3,
+              foregroundColor: kPrimary3,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16))),
           onPressed: onpressed,

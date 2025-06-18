@@ -17,6 +17,7 @@ const Color kGrey = Color.fromARGB(255, 225, 224, 225);
 const Color kMGrey = Color.fromARGB(255, 192, 190, 190);
 
 const Color kDGrey = Color.fromARGB(255, 94, 93, 94);
+const Color kDdGrey = Color.fromARGB(255, 138, 137, 138);
 const Color kwarm = Color.fromARGB(255, 238, 243, 218);
 const Color kBlue = Color.fromARGB(255, 12, 78, 132);
 const Color kBlue2 = Color.fromARGB(255, 82, 173, 248);

@@ -20,7 +20,7 @@ class CustomTextFormField extends StatelessWidget {
           suffixIcon: icon,
           hintText: hintText,
           hintStyle: GoogleFonts.cairo(
-              color: kMGrey, fontSize: w * .038, fontWeight: FontWeight.bold),
+              color: kDdGrey, fontSize: w * .038, fontWeight: FontWeight.bold),
           filled: true,
           fillColor: kGrey,
           border: BuildBorder(),

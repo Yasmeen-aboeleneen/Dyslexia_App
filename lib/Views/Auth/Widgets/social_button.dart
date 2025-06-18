@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
- 
+import 'package:flutter_svg/svg.dart';
 import 'package:dyslexia_app/Core/Constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +22,6 @@ class SocialButton extends StatelessWidget {
       width: w,
       height: h * .065,
       child: TextButton(
-        // iconAlignment: IconAlignment.start,
         style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
                 side: const BorderSide(color: kMGrey, width: 1),
@@ -31,7 +30,9 @@ class SocialButton extends StatelessWidget {
         child: ListTile(
           visualDensity:
               const VisualDensity(vertical: VisualDensity.minimumDensity),
-          // leading: SvgPicture.asset(image),
+          leading: SvgPicture.asset(
+            image,
+          ),
           title: Text(
             title,
             style: GoogleFonts.cairo(

@@ -48,7 +48,7 @@ class LoginScreenBody extends StatelessWidget {
                 textAlign: TextAlign.left,
                 'نسيت كلمة المرور؟',
                 style: GoogleFonts.cairo(
-                    color: kPrimary2,
+                    color: kBlack,
                     fontSize: w * .05,
                     fontWeight: FontWeight.w600),
               ),

@@ -15,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
-    // var h = MediaQuery.of(context).size.height;
+   
     return Scaffold(
         appBar: BuildAppBar(context, w, title: 'تسجيل الدخول'),
         backgroundColor: kveryWhite,

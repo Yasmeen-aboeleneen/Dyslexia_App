@@ -1,11 +1,10 @@
 import 'package:dyslexia_app/Core/Constants/colors.dart';
-import 'package:dyslexia_app/Views/Auth/signup_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DontHaveAnAccountWidget extends StatelessWidget {
-  const DontHaveAnAccountWidget({
+class HaveAnAccount extends StatelessWidget {
+  const HaveAnAccount({
     super.key,
     required this.w,
   });
@@ -16,23 +15,23 @@ class DontHaveAnAccountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(TextSpan(children: [
       TextSpan(
-          text: 'لا تمتلك حساب',
+          text: 'تمتلك حساب بالفعل',
           style: GoogleFonts.cairo(
-              color: kMGrey, fontWeight: FontWeight.w700, fontSize: w * .048)),
+              color: kDGrey, fontWeight: FontWeight.w500, fontSize: w * .042)),
       TextSpan(
           text: " ؟",
           style: GoogleFonts.cairo(
-              color: kMGrey, fontWeight: FontWeight.w600, fontSize: w * .045)),
+              color: kDGrey, fontWeight: FontWeight.w500, fontSize: w * .045)),
       TextSpan(
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              Navigator.pushNamed(context, SignupScreen.signUPRoute);
+              Navigator.pop(context);
             },
-          text: 'قم بإنشاء حساب',
+          text: ' تسجيل الدخول ',
           style: GoogleFonts.cairo(
               color: kPrimary3,
               fontWeight: FontWeight.w700,
-              fontSize: w * .048))
+              fontSize: w * .047))
     ]));
   }
 }
