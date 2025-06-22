@@ -1,388 +1,375 @@
+// ignore_for_file: use_super_parameters, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dyslexia_app/Core/Widgets/custom_app_bar.dart';
 import 'package:dyslexia_app/Core/Constants/colors.dart';
-import 'package:dyslexia_app/Views/Home/Tests/Spelling_Test/Controller/spelling_controller.dart';
+import 'spelling_controller.dart';
+import 'dart:math';
 
 class VoiceSpellingTest extends StatefulWidget {
-  const VoiceSpellingTest({super.key});
+  const VoiceSpellingTest({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _VoiceSpellingTestState createState() => _VoiceSpellingTestState();
+  State<VoiceSpellingTest> createState() => _VoiceSpellingTestState();
 }
 
 class _VoiceSpellingTestState extends State<VoiceSpellingTest> {
-  late SpellingTestViewModel _viewModel;
-  bool _isInitialized = false;
-  String _errorMessage = '';
+  late SpellingTestController _controller;
+  bool _isLoading = true;
+  String? _error;
+  double _soundLevel = 0.0;
+  bool _showTips = false;
 
   @override
   void initState() {
     super.initState();
-    _initViewModel();
+    _initController();
   }
 
-  Future<void> _initViewModel() async {
-    _viewModel = SpellingTestViewModel();
+  Future<void> _initController() async {
     try {
-      await _viewModel.init();
-      setState(() => _isInitialized = true);
+      _controller = SpellingTestController();
+      await _controller.initialize();
+      setState(() => _isLoading = false);
     } catch (e) {
-      setState(() => _errorMessage = e.toString());
+      setState(() => _error = e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
-    final h = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
 
-    if (!_isInitialized) {
-      return _buildLoadingScreen();
-    }
+    if (_isLoading) return _buildLoadingView(size);
+    if (_error != null) return _buildErrorView(size);
 
     return Scaffold(
       backgroundColor: kPrimary3,
-      appBar: BuildAppBar(context, w, title: 'اختبار التهجئة', actions: []),
-      body: Padding(
+      appBar: BuildAppBar(
+        context,
+        size.width,
+        title: "تدريبات التهجئة",
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: _showHelpDialog,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildProgressIndicator(w),
-              SizedBox(height: h * .03),
-              _buildWordCard(w, h),
-              SizedBox(height: h * .05),
-              _buildControlsSection(w, h),
-              if (_viewModel.showResult) _buildResultSection(w),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProgressIndicator(double width) {
-    return LinearProgressIndicator(
-      value: (_viewModel.currentIndex + 1) / _viewModel.words.length,
-      color: kBlack,
-      backgroundColor: kveryWhite,
-      minHeight: 6,
-    );
-  }
-
-  Widget _buildWordCard(double width, double height) {
-    return Container(
-      height: height * .3,
-      width: width,
-      decoration: BoxDecoration(
-        color: kveryWhite,
-        borderRadius: BorderRadius.circular(35),
-        boxShadow: [BoxShadow(blurRadius: 10, color: kveryWhite)],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "الكلمة المراد نطقها",
-            style: GoogleFonts.cairo(
-              color: kDGrey,
-              fontSize: width * .06,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: height * .02),
-          Text(
-            _viewModel.words[_viewModel.currentIndex].word,
-            style: GoogleFonts.cairo(
-              color: kBlack,
-              fontSize: width * .12,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          if (_viewModel.showHint &&
-              _viewModel.words[_viewModel.currentIndex].hint != null)
-            Padding(
-              padding: EdgeInsets.only(top: height * .02),
-              child: Text(
-                _viewModel.words[_viewModel.currentIndex].hint!,
-                style: GoogleFonts.cairo(
-                  color: kDGrey,
-                  fontSize: width * .045,
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildControlsSection(double width, double height) {
-    return Column(
-      children: [
-        _buildActionButton(
-          icon: Icons.volume_up,
-          label: 'استمع للكلمة',
-          color: kDGrey,
-          onPressed: _handleSpeakWord,
-          width: width,
-        ),
-        SizedBox(height: height * .03),
-        _buildRecordButton(width),
-        if (_viewModel.recordedFilePath != null) ...[
-          SizedBox(height: height * .03),
-          _buildPlaybackButton(width),
-        ],
-      ],
-    );
-  }
-
-  Future<void> _handleSpeakWord() async {
-    try {
-      await _viewModel.speakWord();
-    } catch (e) {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('تعذر تشغيل الكلمة', style: GoogleFonts.cairo()),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  Widget _buildRecordButton(double width) {
-    return _buildActionButton(
-      icon: _viewModel.isRecording ? Icons.stop : Icons.mic,
-      label: _viewModel.isRecording ? 'إيقاف التسجيل' : 'تسجيل إجابتك',
-      color: _viewModel.isRecording ? kRed : kveryWhite,
-      textColor: _viewModel.isRecording ? kveryWhite : kBlack,
-      onPressed: _handleRecording,
-      width: width,
-    );
-  }
-
-  Future<void> _handleRecording() async {
-    try {
-      if (_viewModel.isRecording) {
-        await _viewModel.stopRecording();
-      } else {
-        await _viewModel.startRecording();
-      }
-      setState(() {});
-    } catch (e) {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('حدث خطأ أثناء التسجيل', style: GoogleFonts.cairo()),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  Widget _buildPlaybackButton(double width) {
-    return _buildActionButton(
-      icon: _viewModel.isPlaying ? Icons.volume_up : Icons.play_arrow,
-      label: 'سماع تسجيلي',
-      color: kDGrey,
-      onPressed: _viewModel.isPlaying ? null : _handlePlayRecording,
-      width: width,
-    );
-  }
-
-  Future<void> _handlePlayRecording() async {
-    try {
-      await _viewModel.playRecording();
-      setState(() {});
-    } catch (e) {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('تعذر تشغيل التسجيل', style: GoogleFonts.cairo()),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  Widget _buildResultSection(double width) {
-    return Column(
-      children: [
-        SizedBox(height: 20),
-        _viewModel.isCorrect
-            ? _buildSuccessWidget(width)
-            : _buildErrorWidget(width),
-        SizedBox(height: 20),
-        _buildNextButton(width),
-      ],
-    );
-  }
-
-  Widget _buildSuccessWidget(double width) {
-    return Column(
-      children: [
-        Icon(Icons.check_circle, color: kgreen2, size: 60),
-        SizedBox(height: 10),
-        Text(
-          'أحسنت! النطق صحيح',
-          style: GoogleFonts.cairo(
-            color: kgreen2,
-            fontSize: width * .06,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildErrorWidget(double width) {
-    return Column(
-      children: [
-        Icon(Icons.error_outline, color: kRed, size: 60),
-        SizedBox(height: 10),
-        Text(
-          'يحتاج لتحسين',
-          style: GoogleFonts.cairo(
-            color: kRed,
-            fontSize: width * .06,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 10),
-        if (_viewModel.userPronunciation.isNotEmpty)
-          Text(
-            'نطقك: ${_viewModel.userPronunciation}',
-            style: GoogleFonts.cairo(
-              color: kveryWhite,
-              fontSize: width * .045,
-            ),
-          ),
-        SizedBox(height: 5),
-        Text(
-          'الكلمة الصحيحة: ${_viewModel.words[_viewModel.currentIndex].word}',
-          style: GoogleFonts.cairo(
-            color: kveryWhite,
-            fontSize: width * .045,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildNextButton(double width) {
-    return _buildActionButton(
-      icon: Icons.navigate_next,
-      label: _viewModel.currentIndex < _viewModel.words.length - 1
-          ? 'الكلمة التالية'
-          : 'إنهاء الاختبار',
-      color: kveryWhite,
-      textColor: kBlack,
-      onPressed: () {
-        setState(() => _viewModel.nextWord());
-        if (_viewModel.currentIndex == _viewModel.words.length - 1) {
-          _showFinalResults();
-        }
-      },
-      width: width * 0.8,
-    );
-  }
-
-  void _showFinalResults() {
-    final results = _viewModel.getTestResults();
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('نتائج الاختبار', style: GoogleFonts.cairo()),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           children: [
-            Text(
-              'الإجابات الصحيحة: ${results['correct']}/${results['total']}',
-              style: GoogleFonts.cairo(),
-            ),
-            Text(
-              'النسبة: ${results['percentage']}%',
-              style: GoogleFonts.cairo(),
-            ),
+            _buildProgressIndicator(size),
+            const SizedBox(height: 20),
+            _buildWordCard(size),
+            const SizedBox(height: 20),
+            _buildSoundLevelIndicator(),
+            const SizedBox(height: 20),
+            _buildActionButtons(size),
+            if (_controller.recordingState == RecordingState.processing)
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: CircularProgressIndicator(),
+              ),
+            if (_controller.userPronunciation.isNotEmpty)
+              _buildResultSection(size),
+            if (_showTips) _buildTipsSection(size),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('حسناً', style: GoogleFonts.cairo()),
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator(Size size) {
+    return Column(
+      children: [
+        LinearProgressIndicator(
+          value: (_controller.currentIndex + 1) / _controller.words.length,
+          backgroundColor: kveryWhite,
+          color: kDGrey,
+          minHeight: 8,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          '${_controller.currentIndex + 1} / ${_controller.words.length}',
+          style: GoogleFonts.cairo(
+            color: kveryWhite,
+            fontSize: 14,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWordCard(Size size) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text(
+              'تهجّي الكلمة التالية',
+              style: GoogleFonts.cairo(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: kDGrey,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              _controller.currentWord.word,
+              style: GoogleFonts.cairo(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: kBlack,
+              ),
+            ),
+            const SizedBox(height: 12),
+            _buildPhoneticPattern(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPhoneticPattern() {
+    return Wrap(
+      spacing: 8,
+      children:
+          _controller.currentWord.phoneticPattern.split('-').map((phoneme) {
+        return Chip(
+          label: Text(phoneme),
+          backgroundColor: kDGrey.withOpacity(0.1),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildSoundLevelIndicator() {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 100),
+      height: _controller.recordingState == RecordingState.recording ? 12 : 0,
+      child: LinearProgressIndicator(
+        value: _soundLevel / 100,
+        backgroundColor: Colors.transparent,
+        color: kRed,
+        minHeight: 8,
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(Size size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButton(
+          icon: Icons.volume_up,
+          label: 'استمع',
+          onPressed: _handleSpeak,
+          color: kDGrey,
+          size: size,
+        ),
+        _buildButton(
+          icon: _controller.recordingState == RecordingState.recording
+              ? Icons.stop
+              : Icons.mic,
+          label: _controller.recordingState == RecordingState.recording
+              ? 'إيقاف'
+              : 'تسجيل',
+          onPressed: _handleRecording,
+          color: _controller.recordingState == RecordingState.recording
+              ? kRed
+              : kveryWhite,
+          textColor: _controller.recordingState == RecordingState.recording
+              ? kveryWhite
+              : kBlack,
+          size: size,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildResultSection(Size size) {
+    final isCorrect = _controller.currentWord
+        .matchesPronunciation(_controller.userPronunciation);
+
+    return Column(
+      children: [
+        const SizedBox(height: 20),
+        Icon(
+          isCorrect ? Icons.check_circle : Icons.help_outline,
+          color: isCorrect ? kgreen2 : kPrimary1,
+          size: 50,
+        ),
+        const SizedBox(height: 12),
+        Text(
+          isCorrect ? 'نطق صحيح!' : 'يحتاج تحسين',
+          style: GoogleFonts.cairo(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: isCorrect ? kgreen2 : kPrimary1,
+          ),
+        ),
+        const SizedBox(height: 16),
+        _buildComparisonRow(
+          'لقد قلت:',
+          _controller.userPronunciation,
+          kRed,
+        ),
+        const SizedBox(height: 8),
+        _buildComparisonRow(
+          'الصحيح:',
+          _controller.currentWord.word,
+          kgreen2,
+        ),
+        const SizedBox(height: 20),
+        _buildNextButton(size),
+      ],
+    );
+  }
+
+  Widget _buildTipsSection(Size size) {
+    return Container(
+      margin: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: kDGrey.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'نصائح للنطق:',
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: kDGrey,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ..._buildPronunciationTips(),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildPronunciationTips() {
+    final word = _controller.currentWord.word;
+    final tips = <Widget>[];
+
+    if (word.contains('ق')) {
+      tips.add(_buildTipItem('حرف القاف: انطقه من أقصى الحلق'));
+    }
+    if (word.contains('ض')) {
+      tips.add(_buildTipItem('حرف الضاد: اضغط بلسانك على أسنانك الأمامية'));
+    }
+    if (word.length > 4) {
+      tips.add(_buildTipItem('قسّم الكلمة: ${_splitWord(word)}'));
+    }
+
+    return tips.isNotEmpty
+        ? tips
+        : [_buildTipItem('استمع جيداً وحاول التقليد')];
+  }
+
+  String _splitWord(String word) {
+    return word.split('').join('-');
+  }
+
+  Widget _buildTipItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.arrow_left, size: 20, color: kDGrey),
+          const SizedBox(width: 4),
+          Expanded(
+            child: Text(
+              text,
+              style: GoogleFonts.cairo(fontSize: 14),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildLoadingScreen() {
-    return Scaffold(
-      backgroundColor: kPrimary3,
-      body: Center(
-        child: _errorMessage.isNotEmpty
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.error, color: kRed, size: 50),
-                  SizedBox(height: 20),
-                  Text(
-                    _errorMessage,
-                    style: GoogleFonts.cairo(color: kveryWhite),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _initViewModel,
-                    child: Text('إعادة المحاولة', style: GoogleFonts.cairo()),
-                  ),
-                ],
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(color: kveryWhite),
-                  SizedBox(height: 20),
-                  Text(
-                    'جاري تحميل الاختبار...',
-                    style: GoogleFonts.cairo(color: kveryWhite),
-                  ),
-                ],
-              ),
+  Widget _buildComparisonRow(String label, String text, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: GoogleFonts.cairo(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildActionButton({
+  Widget _buildNextButton(Size size) {
+    final isLast = _controller.currentIndex == _controller.words.length - 1;
+
+    return _buildButton(
+      icon: isLast ? Icons.done : Icons.navigate_next,
+      label: isLast ? 'النتائج' : 'التالي',
+      onPressed: () => isLast ? _showResults() : _nextWord(),
+      color: kveryWhite,
+      textColor: kBlack,
+      size: size,
+    );
+  }
+
+  Widget _buildButton({
     required IconData icon,
     required String label,
+    required VoidCallback onPressed,
     required Color color,
     Color textColor = kveryWhite,
-    required VoidCallback? onPressed,
-    required double width,
+    required Size size,
   }) {
     return SizedBox(
-      width: width * 0.74,
+      width: size.width * 0.4,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(35),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: textColor, size: 28),
-            SizedBox(width: 10),
+            Icon(icon, color: textColor, size: 20),
+            const SizedBox(width: 8),
             Text(
               label,
               style: GoogleFonts.cairo(
-                fontSize: width * 0.045,
+                fontSize: 14,
                 color: textColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -393,9 +380,195 @@ class _VoiceSpellingTestState extends State<VoiceSpellingTest> {
     );
   }
 
+  Future<void> _handleSpeak() async {
+    await _controller.speakWord();
+    setState(() => _showTips = true);
+  }
+
+  Future<void> _handleRecording() async {
+    if (_controller.recordingState == RecordingState.recording) {
+      final result = await _controller.stopRecording();
+      _showFeedback(result.isCorrect);
+      setState(() => _showTips = !result.isCorrect);
+    } else {
+      await _controller.startRecording();
+      _startSoundLevelAnimation();
+    }
+    setState(() {});
+  }
+
+  void _startSoundLevelAnimation() {
+    if (_controller.recordingState != RecordingState.recording) return;
+
+    setState(() {
+      _soundLevel = Random().nextDouble() * 80 + 20;
+    });
+
+    Future.delayed(
+        const Duration(milliseconds: 100), _startSoundLevelAnimation);
+  }
+
+  void _nextWord() {
+    _controller.nextWord();
+    setState(() {
+      _showTips = false;
+      _soundLevel = 0.0;
+    });
+  }
+
+  void _showResults() {
+    final results = _controller.getTestResults();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('النتائج', style: GoogleFonts.cairo()),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'الإجابات الصحيحة: ${results['correctAnswers']}/${results['totalWords']}',
+              style: GoogleFonts.cairo(),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'النسبة: ${results['successPercentage']}%',
+              style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('حسناً', style: GoogleFonts.cairo()),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _controller.resetTest();
+              setState(() {});
+            },
+            child: Text('إعادة', style: GoogleFonts.cairo(color: kgreen2)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showHelpDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('مساعدة', style: GoogleFonts.cairo()),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHelpItem('1. اضغط "استمع" لسماع الكلمة'),
+            _buildHelpItem('2. اضغط "تسجيل" وكرر الكلمة'),
+            _buildHelpItem('3. استمع للنصائح لتحسين نطقك'),
+            _buildHelpItem('4. تابع للكلمة التالية عند التمكن'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('فهمت', style: GoogleFonts.cairo(color: kgreen2)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHelpItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          const Icon(Icons.circle, size: 8, color: kDGrey),
+          const SizedBox(width: 8),
+          Text(text, style: GoogleFonts.cairo()),
+        ],
+      ),
+    );
+  }
+
+  void _showFeedback(bool isCorrect) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          isCorrect ? 'تم التسجيل بنجاح!' : 'حاول مرة أخرى',
+          style: GoogleFonts.cairo(),
+        ),
+        backgroundColor: isCorrect ? kgreen2 : kPrimary1,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Widget _buildLoadingView(Size size) {
+    return Scaffold(
+      backgroundColor: kPrimary3,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(color: kveryWhite),
+            const SizedBox(height: 20),
+            Text(
+              'جاري التحميل...',
+              style: GoogleFonts.cairo(
+                color: kveryWhite,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildErrorView(Size size) {
+    return Scaffold(
+      backgroundColor: kPrimary3,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, color: kRed, size: 50),
+              const SizedBox(height: 20),
+              Text(
+                'حدث خطأ:',
+                style: GoogleFonts.cairo(
+                  color: kveryWhite,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                _error ?? 'غير معروف',
+                style: GoogleFonts.cairo(),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              _buildButton(
+                icon: Icons.refresh,
+                label: 'إعادة المحاولة',
+                onPressed: _initController,
+                color: kDGrey,
+                size: size,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
-    _viewModel.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }

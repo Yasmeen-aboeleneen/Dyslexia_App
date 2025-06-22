@@ -8,8 +8,12 @@ class ReadingEvaluator {
       (_) => List.filled(len2 + 1, 0),
     );
 
-    for (int i = 0; i <= len1; i++) dp[i][0] = i;
-    for (int j = 0; j <= len2; j++) dp[0][j] = j;
+    for (int i = 0; i <= len1; i++) {
+      dp[i][0] = i;
+    }
+    for (int j = 0; j <= len2; j++) {
+      dp[0][j] = j;
+    }
 
     for (int i = 1; i <= len1; i++) {
       for (int j = 1; j <= len2; j++) {
@@ -31,7 +35,7 @@ class ReadingEvaluator {
     final normalizedB = b.replaceAll(RegExp(r'[^\u0600-\u06FF\s]'), '').trim();
 
     final distance = levenshteinDistance(normalizedA, normalizedB);
-    final maxLength = normalizedA.length > 0 ? normalizedA.length : 1;
+    final maxLength = normalizedA.isNotEmpty ? normalizedA.length : 1;
 
     return 1.0 - (distance / maxLength);
   }

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "903584646243",
-    "project_id": "dyslexia-app-ab4d1",
-    "storage_bucket": "dyslexia-app-ab4d1.firebasestorage.app"
+    "project_number": "348813935827",
+    "project_id": "dyslexia-44ba0",
+    "storage_bucket": "dyslexia-44ba0.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:903584646243:android:3802bf9600b2e183cee456",
+        "mobilesdk_app_id": "1:348813935827:android:0f73ff2e12dc205cfe4026",
         "android_client_info": {
           "package_name": "com.example.dyslexia_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA_A2Vu7R22LtsndcoSlmgLIZ85OeseQrs"
+          "current_key": "AIzaSyAXF_hwsppZvJdMoXLdH__Tq6nLmCicWUM"
         }
       ],
       "services": {

@@ -200,7 +200,7 @@ class _VoiceLetterTestState extends State<VoiceLetterTest> {
 
     return Scaffold(
       backgroundColor: kPrimary3,
-      appBar: BuildAppBar(context, w, title: 'الاختبار الأول', actions: [
+      appBar: BuildAppBar(context, w, title: 'تدريبات التمييز', actions: [
         IconButton(
           onPressed: _showInstructions,
           icon: Icon(Icons.info, color: kBlack),
@@ -341,7 +341,7 @@ class _VoiceLetterTestState extends State<VoiceLetterTest> {
         backgroundColor: kPrimary3,
         title: Center(
             child: Text(
-          'تعليمات الاختبار',
+          'تعليمات',
           style: GoogleFonts.cairo(
               color: kBlack, fontWeight: FontWeight.bold, fontSize: 19.5),
         )),

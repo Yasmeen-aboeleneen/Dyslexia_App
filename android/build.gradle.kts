@@ -1,3 +1,11 @@
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24")
+         
+
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -18,4 +26,9 @@ subprojects {
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
+}
+plugins {
+   id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+  id("com.google.gms.google-services") version "4.4.2" apply false
+
 }

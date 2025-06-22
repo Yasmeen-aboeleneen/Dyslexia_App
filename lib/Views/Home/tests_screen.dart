@@ -83,7 +83,7 @@ class TestsScreen extends StatelessWidget {
                           height: h * .05,
                         ),
                         TestCard(
-                          title: 'اختبار التمييز بين الحروف',
+                          title: 'تدريبات التمييز بين الحروف',
                           description: 'تمييز الحروف المتشابهة',
                           icon: Icons.text_fields,
                           onTap: () => Navigator.push(
@@ -95,7 +95,7 @@ class TestsScreen extends StatelessWidget {
                           height: h * .05,
                         ),
                         TestCard(
-                          title: 'اختبار التهجئة',
+                          title: 'تدريبات التهجئة',
                           description: 'قياس قدرات التهجئة',
                           icon: Icons.spellcheck,
                           onTap: () => Navigator.push(
@@ -107,7 +107,7 @@ class TestsScreen extends StatelessWidget {
                           height: h * .05,
                         ),
                         TestCard(
-                          title: 'اختبار الوعي الصوتي',
+                          title: 'تدريبات الوعي الصوتي',
                           description: 'القدرة على التلاعب بالمقاطع الصوتية',
                           icon: Icons.record_voice_over,
                           onTap: () => Navigator.push(

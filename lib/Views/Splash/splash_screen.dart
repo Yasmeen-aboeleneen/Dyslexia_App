@@ -68,13 +68,13 @@ class _SplashScreenState extends State<SplashScreen>
                 color: kveryWhite,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(Assets.imagesDownload),
+                  image: AssetImage(Assets.imagesLogo),
                 ),
               ),
             ),
           ),
           Positioned(
-            top: h * .68,
+            top: h * .67,
             left: w * .2,
             right: w * .2,
             child: Center(
@@ -83,10 +83,10 @@ class _SplashScreenState extends State<SplashScreen>
                 duration: Duration(seconds: 1),
                 child: Text(
                   "Discovery",
-                  style: GoogleFonts.cairo(
+                  style: GoogleFonts.notoNaskhArabic(
                     color: kveryWhite,
                     fontWeight: FontWeight.bold,
-                    fontSize: w * .08,
+                    fontSize: w * .1,
                   ),
                 ),
               ),

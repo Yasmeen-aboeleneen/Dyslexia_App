@@ -4,16 +4,16 @@ class TextToSpeech {
   static final FlutterTts flutterTts = FlutterTts();
 
   static Future<void> init() async {
-    await flutterTts.setLanguage("ar-EG"); // تعيين اللغة العربية المصرية
-    await flutterTts.setPitch(5.0); // ضبط درجة الصوت
-    await flutterTts.setSpeechRate(0.6); // ضبط سرعة الكلام
+    await flutterTts.setLanguage("ar-EG"); 
+    await flutterTts.setPitch(5.0); 
+    await flutterTts.setSpeechRate(0.6); 
   }
 
   static Future<void> speak(String text) async {
-    await flutterTts.speak(text); // قراءة النص بصوت عالٍ
+    await flutterTts.speak(text); 
   }
 
   static Future<void> stop() async {
-    await flutterTts.stop(); // إيقاف القراءة
+    await flutterTts.stop(); 
   }
 }

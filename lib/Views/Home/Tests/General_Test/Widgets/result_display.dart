@@ -7,7 +7,7 @@ class ResultDisplay extends StatelessWidget {
   final String result;
   final VoidCallback onEvaluate;
 
-  const ResultDisplay({
+  const ResultDisplay({super.key, 
     required this.recognizedText,
     required this.result,
     required this.onEvaluate,

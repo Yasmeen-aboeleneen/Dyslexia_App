@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dyslexia</string>
+    <string name="facebook_app_id">1427184505131890</string>
+    <string name="fb_login_protocol_scheme">fb1427184505131890</string>
+</resources>

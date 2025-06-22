@@ -116,7 +116,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                   Text(
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.justify,
-                    'Mohamed Ghoniem',
+                    'Mohamed Ghonem',
                     style: GoogleFonts.aBeeZee(
                         color: kBlue,
                         fontSize: w * .07,

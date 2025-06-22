@@ -103,7 +103,7 @@ class _PhonologicalTestScreenState extends State<PhonologicalTestScreen> {
     var h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: kPrimary3,
-      appBar: BuildAppBar(context, w, title: 'اختبار الوعي الصوتي', actions: [
+      appBar: BuildAppBar(context, w, title: ' التدريبات الصوتية', actions: [
         Padding(
           padding: const EdgeInsets.all(10),
           child: IconButton(

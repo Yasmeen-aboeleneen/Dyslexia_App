@@ -6,7 +6,8 @@ import 'package:dyslexia_app/Core/Constants/colors.dart';
 class CustomSplashButton extends StatelessWidget {
   const CustomSplashButton({
     super.key,
-    required this.text,required this.onTap,  
+    required this.text,
+    required this.onTap,
   });
   final String text;
   final void Function()? onTap;
@@ -15,10 +16,10 @@ class CustomSplashButton extends StatelessWidget {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap:onTap ,
+      onTap: onTap,
       child: Container(
-        height: h * .09,
-        width: w * .24,
+        height: h * .075,
+        width: w * .3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           color: kveryWhite,
@@ -27,7 +28,7 @@ class CustomSplashButton extends StatelessWidget {
           child: Text(
             text,
             style: GoogleFonts.cairo(
-                color: kPrimary2,
+                color: kPrimary3,
                 fontWeight: FontWeight.bold,
                 fontSize: w * .075),
           ),

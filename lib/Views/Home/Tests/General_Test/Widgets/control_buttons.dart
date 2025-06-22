@@ -7,7 +7,7 @@ class ControlButtons extends StatelessWidget {
   final VoidCallback onRecord;
   final bool isListening;
 
-  const ControlButtons({
+  const ControlButtons({super.key, 
     required this.onSpeak,
     required this.onRecord,
     required this.isListening,
